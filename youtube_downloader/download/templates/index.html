@@ -1,0 +1,55 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'download/style.css' %}">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<!DOCTYPE html>
+
+
+<html>
+    <body>
+{% include "main.html" %}
+{% block content %}
+{% endblock content %}
+
+    <div>
+    <h1>Get YouTube video/audio</h1>
+
+    <form action="download" method="post">
+        {% csrf_token %}
+        <h3>URL:</h3>
+        <input name="url" type="url" placeholder="Enter YT url here..." autofocus="autofocus" required="required">
+        <input type="submit" value="Search">
+    </form>
+    </div>
+
+    <div>
+    <h1>Last 10 downloads</h1>
+    <table class="redTable">
+        <thead>
+            <tr>
+            <th class="thumbnail"></th>
+            <th>Author</th>
+            <th>Title</th>
+            <th>Download date</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for x in showDownloads %}
+        <tr>
+            {% comment %} <td>{{ x.id }}</td> {% endcomment %}
+            {% comment %} <td>{{ x.file_url }}</td> {% endcomment %}
+            <td><a href='{{ x.file_url }}'><img src="{{ x.thumbnail_url }}" alt="thumbnail"></a></td>
+            <td>{{ x.file_author }}</td>
+            <td><a href='{{ x.file_url }}'>{{ x.file_title }}</a></td>
+            <td>{{ x.downlod_date }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+
+</html>
