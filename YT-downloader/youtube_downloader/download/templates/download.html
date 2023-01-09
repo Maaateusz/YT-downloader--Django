@@ -1,0 +1,123 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'download/style.css' %}">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<script src="{% static 'download/script.js' %}"></script>   
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<!DOCTYPE html>
+
+
+<html>
+    
+    <body>
+
+        {% include "main.html" %}
+        {% block content %}
+        {% endblock content %}
+
+        <div>
+        <table class="redTable">
+            <tr>
+                <td><div class="thumbnail"><a href='{{ url }}'><img src="{{ thumbnail_url }}" alt="thumbnail"></a></div></td>
+            </tr>
+            <tr>
+                <td>Title:<br><h2><a href="{{ url }}"> {{ title }}</a></h2></td>
+            </tr>
+            <tr>
+                <td>Author:<br>{{ author }}</td>
+            </tr>
+            <tr>
+                <td>{{ views }} views</td>
+            </tr>
+            <tr>
+                <td>Published {{ publish_date }}</td>
+            </tr>
+            <tr>
+                <td>Length:<br>{{ length }}</td>
+            </tr>
+            <tr>
+                <td class="Description">Description:<br>{{ description }}</td>
+            </tr>
+        </table>
+        </div>
+        <div>
+            <h1>Video</h1>
+            <table class="redTable">
+                <thead>
+                    <tr>
+                        <th>subtype</th>
+                        <th>resolution</th>
+                        <th>fps</th>
+                        <th>filesize [Bytes]</th>
+                        <th>bitrate</th>
+                        <th>video</th>
+                        <th>audio</th>
+                        <th>URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for stream in streams_video %}
+                    <tr>
+                        <td>{{ stream.subtype }}</td>
+                        <td>{{ stream.resolution }}</td>
+                        <td>{{ stream.fps }}</td>
+                        <td>{{ stream.filesize }}</td>
+                        <td>{{ stream.bitrate }}</td>
+                        <td>{{ stream.video_codec }}</td>
+                        <td>{% if stream.audio_codec == None %}
+                            -
+                            {% else %}
+                                {{ stream.audio_codec }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a class="go_to_source" href="{{stream.url}}" onclick="saveIDownloadedInfo()" download>Go to source</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <h1>Audio</h1>
+            <table class="redTable">
+                <thead>
+                <tr>
+                    <th>subtype</th>
+                    <th>abr</th>
+                    <th>filesize [Bytes]</th>
+                    <th>bitrate</th>
+                    <th>audio</th>
+                    <th>download_url</th>
+                    <th>mp3</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stream in streams_audio %}
+                <tr>
+                    <td>{{ stream.subtype }}</td>
+                    <td>{{ stream.abr }}</td>
+                    <td>{{ stream.filesize }}</td>
+                    <td>{{ stream.bitrate }}</td>
+                    <td>{{ stream.audio_codec }}</td>
+                    <td>
+                        <a class="go_to_source" href="{{stream.url}}" onclick="saveIDownloadedInfo()" download>Go to source</a>
+                    </td>
+                    <td>
+                        {% if isTooLong %}
+                            <p>File is too long!!</p>
+                        {% else %}
+                            <button onclick="download_mp3('{{csrf_token}}', {{stream.itag}}, '{{url}}')">Download mp3</button>
+                        {% endif %}
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+    </body>
+
+</html>

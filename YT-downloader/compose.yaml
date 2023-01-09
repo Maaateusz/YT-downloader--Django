@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+
+  ytdjango:
+    container_name: 'YT-django'
+    # Path to dockerfile.
+    build: ./youtube_downloader/
+    command: python youtube_downloader/manage.py runserver 0.0.0.0:8000
+      # - echo 'ls youtube_downloader'
+      # - echo 'ls'
+      # - '&&'
+      # - python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"

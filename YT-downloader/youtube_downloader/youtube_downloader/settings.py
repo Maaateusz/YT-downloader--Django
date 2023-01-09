@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'download.apps.DownloadConfig',
+    # 'youtube_downloader',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +90,17 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('POSTGRES_NAME'),
+#         'USER': os.environ.get('POSTGRES_USER'),
+#         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+#         'HOST': '127.0.0.1',
+#         'PORT': 5432,
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -122,9 +134,39 @@ USE_I18N = True
 
 USE_TZ = True
 
-STATIC_URL = '/static/'
-MEDIA_URL = "/media/"
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-# MEDIA_ROOT = BASE_DIR / "media"
+STATIC_URL = "static/"
+# STATIC_URL = os.path.join(BASE_DIR, "static/")
+# STATIC_URL = str(BASE_DIR)+'/static/'
+# STATIC_URL = 'http://127.0.0.1:8080/youtube_downloader/static/'
+MEDIA_URL = "/media/"
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, ''),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, ""),)
+# STATIC_ROOT = str(BASE_DIR)+"static/"
+# STATIC_ROOT = os.path.join(BASE_DIR, "static/")
+# MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+# STATIC_ROOT = "staticfiles/"
+# STATIC_ROOT = "static"
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = 'static/'
+# print(STATIC_ROOT)
+MEDIA_ROOT = BASE_DIR / "media"
+# find static
+# py manage.py findstatic --verbosity 2 static 
+# python manage.py findstatic app.css
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# unicorn RUN
+# gunicorn myproject.asgi:application -k uvicorn.workers.UvicornWorker
+
+# hypercorn RUN
+# hypercorn myproject.asgi:application
+# hypercorn youtube_downloader.asgi:application
+
+# trzeba ffmpeg zainstalować

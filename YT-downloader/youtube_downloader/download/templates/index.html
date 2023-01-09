@@ -1,0 +1,30 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'download/style.css' %}">
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<script src="{% static 'download/script.js' %}"></script>   
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+
+<!DOCTYPE html>
+
+<html>
+
+    <body>
+
+        {% include "main.html" %}
+        {% block content %}
+        {% endblock content %}
+
+        <div>
+            <form action='download' method="post">
+                {% csrf_token %}
+                <label for="url"><h3>YouTube Video/Audio URL:</h3></label>
+                <input id='url_file' name="url" type="url" placeholder="Enter YT url here..." autofocus="autofocus" required="required" />
+                <button type='button' onclick='download_mp3("{{csrf_token}}")'>Download .mp3</button>
+                <input type="submit" value="Details" />
+            </form>
+        </div>
+
+    </body>
+
+</html>

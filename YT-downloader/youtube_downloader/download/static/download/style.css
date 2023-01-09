@@ -3,6 +3,7 @@ img {
     max-width: 100%;
 }
 
+
 .Description {
     width: 100px;
     white-space: nowrap;
@@ -16,18 +17,9 @@ div {
     margin-right: auto;
 }
 
-/* div {
-    max-width: 1000px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-} */
-
 
 header {
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -56,11 +48,6 @@ table.redTable th {
     margin-right: auto;
 }
 
-/* td:last-child {
-    width: 100px;
-    white-space: nowrap;
-    overflow: hidden;
-} */
 
 table.redTable tr:nth-child(even) {
     background: #F5C8BF;
@@ -128,7 +115,8 @@ input[type=button] {
 }
 
 input[type=submit],
-input[type=reset] {
+input[type=reset],
+button[type=button] {
     background-color: #A40808;
     border: none;
     color: white;
@@ -147,7 +135,9 @@ input[type=url] {
     background-repeat: no-repeat;
     padding: 16px 32px;
     font-size: medium;
+    width: 100%;
 }
+
 
 .go_to_source {
     border-color: #e47979;
